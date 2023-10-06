@@ -11,9 +11,9 @@ export const likeEventListener = () => {
             const postId = likeButton.dataset.postId;
 
             if (likeButton.dataset.isLiked) {
-                removeLike({ token: getToken(), id: postId });
+                removeLike({ token: getToken(), postId });
             } else {
-                setLike({ token: getToken(), id: postId });
+                setLike({ token: getToken(), postId });
             }
         })
     });

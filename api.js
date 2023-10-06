@@ -65,7 +65,7 @@ export const addPost = ({ token, description, imageUrl }) => {
 }
 
 export const setLike = ({ token, postId }) => {
-  return fetch(postsHost + postId + "/like", {
+  return fetch(postsHost + '/' + postId + "/like", {
     method: "POST",
     headers: {
       Authorization: token,
@@ -81,7 +81,7 @@ export const setLike = ({ token, postId }) => {
 }
 
 export const removeLike = ({ token, postId }) => {
-  return fetch(postsHost + postId + "/like", {
+  return fetch(postsHost + '/' + postId + "/dislike", {
     method: "POST",
     headers: {
       Authorization: token,
