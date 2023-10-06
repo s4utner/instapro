@@ -1,8 +1,9 @@
 import { getToken } from "../index.js";
 import { setLike, removeLike } from "../api.js";
+import { renderPostsPageComponent } from "./posts-page-component.js";
 
 
-export const likeEventListener = () => {
+export const likeEventListener = ({ appEl }) => {
     const likeButtons = document.querySelectorAll(".like-button");
 
     likeButtons.forEach(likeButton => {
@@ -15,6 +16,8 @@ export const likeEventListener = () => {
             } else {
                 setLike({ token: getToken(), postId });
             }
+
+            renderPostsPageComponent({ appEl });
         })
     });
 };

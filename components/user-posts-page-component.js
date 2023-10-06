@@ -71,5 +71,5 @@ export function renderUserPostsPageComponent({ appEl }) {
         });
     }
 
-    likeEventListener();
+    likeEventListener({ renderPostsPageComponent, appEl });
 }
