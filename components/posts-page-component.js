@@ -1,6 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
+import { setLike, removeLike } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -68,4 +69,11 @@ export function renderPostsPageComponent({ appEl }) {
       });
     });
   }
+
+  const likeButtons = document.querySelectorAll(".like-button");
+  likeButtons.forEach(likeButton => {
+    likeButton.addEventListener("click", () => {
+      console.log(likeButton.dataset);
+    })
+  });
 }
