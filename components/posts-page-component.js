@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { setLike, removeLike } from "../api.js";
+import { likeEventListener } from "./likeEventListener.js";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -14,7 +14,7 @@ export function renderPostsPageComponent({ appEl }) {
       description: post.description,
       userLogin: post.user.login,
       date: new Date(post.createdAt),
-      likes: post.likes.length,
+      likes: post.likes,
       isLiked: post.isLiked,
       id: post.id,
     }
@@ -37,11 +37,11 @@ export function renderPostsPageComponent({ appEl }) {
               <img class="post-image" src="${element.imageUrl}">
             </div>
             <div class="post-likes">
-              <button data-post-id="${element.id}" class="like-button">
-                <img src="./assets/images/like-active.svg">
+              <button data-post-id="${element.id}" data-like="${element.isLiked ? 'true' : ''}" class="like-button">
+                <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
               </button>
               <p class="post-likes-text">
-                Нравится: <strong>${element.likes}</strong>
+                Нравится: <strong>${element.likes.length >= 1 ? element.likes[0].name + 'и ещё' + element.likes.length - 1 : element.likes.length}</strong>
               </p>
             </div>
             <p class="post-text">
@@ -70,10 +70,5 @@ export function renderPostsPageComponent({ appEl }) {
     });
   }
 
-  const likeButtons = document.querySelectorAll(".like-button");
-  likeButtons.forEach(likeButton => {
-    likeButton.addEventListener("click", () => {
-      console.log(likeButton.dataset);
-    })
-  });
+  likeEventListener();
 }
