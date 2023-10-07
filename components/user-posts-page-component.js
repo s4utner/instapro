@@ -1,8 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, renderApp } from "../index.js";
 import { likeEventListener, likedUsers } from "./like-component.js";
-import { renderPostsPageComponent } from "./posts-page-component.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
 
@@ -38,7 +37,7 @@ export function renderUserPostsPageComponent({ appEl }) {
                 <img class="post-image" src="${element.imageUrl}">
               </div>
               <div class="post-likes">
-                <button data-post-id="${element.id}" data-like="${element.isLiked ? 'true' : ''}" class="like-button">
+                <button data-post-id="${element.id}" data-like="${element.isLiked ? 'true' : ''}" data-index="${index}" class="like-button">
                   <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
                 </button>
                 <p class="post-likes-text">
@@ -71,5 +70,5 @@ export function renderUserPostsPageComponent({ appEl }) {
     });
   }
 
-  likeEventListener({ renderPostsPageComponent, appEl });
+  likeEventListener();
 }

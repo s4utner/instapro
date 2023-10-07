@@ -1,6 +1,5 @@
-import { getToken } from "../index.js";
+import { getToken, renderApp, posts } from "../index.js";
 import { setLike, removeLike } from "../api.js";
-import { renderPostsPageComponent } from "./posts-page-component.js";
 
 export const likedUsers = ({ elementLikesLength, elementLikes }) => {
     if (elementLikesLength === 1) {
@@ -12,21 +11,27 @@ export const likedUsers = ({ elementLikesLength, elementLikes }) => {
     }
 };
 
-export const likeEventListener = ({ appEl }) => {
+export const likeEventListener = () => {
     const likeButtons = document.querySelectorAll(".like-button");
 
     likeButtons.forEach(likeButton => {
         likeButton.addEventListener("click", (event) => {
             event.stopPropagation();
             const postId = likeButton.dataset.postId;
+            const index = likeButton.dataset.index;
+            console.log(likeButton.dataset);
 
-            if (likeButton.dataset.isLiked) {
+            if (posts[index].isLiked) {
                 removeLike({ token: getToken(), postId });
+                posts[index].isLiked = false;
+                posts[index].likes--;
             } else {
                 setLike({ token: getToken(), postId });
+                posts[index].isLiked = true;
+                posts[index].likes++;
             }
 
-            renderPostsPageComponent({ appEl });
+            renderApp();
         })
     });
 };

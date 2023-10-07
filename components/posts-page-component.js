@@ -37,7 +37,7 @@ export function renderPostsPageComponent({ appEl }) {
               <img class="post-image" src="${element.imageUrl}">
             </div>
             <div class="post-likes">
-              <button data-post-id="${element.id}" data-like="${element.isLiked ? 'true' : ''}" class="like-button">
+              <button data-post-id="${element.id}" data-like="${element.isLiked ? 'true' : ''}" data-index="${index}" class="like-button">
                 <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
               </button>
               <p class="post-likes-text">
@@ -70,5 +70,5 @@ export function renderPostsPageComponent({ appEl }) {
     });
   }
 
-  likeEventListener({ renderPostsPageComponent, appEl });
+  likeEventListener();
 }
