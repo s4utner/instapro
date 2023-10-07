@@ -39,6 +39,6 @@ export const likeEventListener = () => {
                         renderApp();
                     })
             }
-        })
+        });
     });
 };
