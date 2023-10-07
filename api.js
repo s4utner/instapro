@@ -73,6 +73,7 @@ export const setLike = ({ token, postId }) => {
   })
     .then((response) => {
       if (response.status === 401) {
+        alert('Лайкать посты могут только авторизованные пользователи');
         throw new Error("Нет авторизации");
       }
 

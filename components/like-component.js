@@ -19,19 +19,26 @@ export const likeEventListener = () => {
             event.stopPropagation();
             const postId = likeButton.dataset.postId;
             const index = likeButton.dataset.index;
-            console.log(likeButton.dataset);
 
             if (posts[index].isLiked) {
-                removeLike({ token: getToken(), postId });
-                posts[index].isLiked = false;
-                posts[index].likes--;
+                removeLike({ token: getToken(), postId })
+                    .then(() => {
+                        posts[index].isLiked = false;
+                        posts[index].likes--;
+                    })
+                    .then(() => {
+                        renderApp();
+                    })
             } else {
-                setLike({ token: getToken(), postId });
-                posts[index].isLiked = true;
-                posts[index].likes++;
+                setLike({ token: getToken(), postId })
+                    .then(() => {
+                        posts[index].isLiked = true;
+                        posts[index].likes++;
+                    })
+                    .then(() => {
+                        renderApp();
+                    })
             }
-
-            renderApp();
         })
     });
 };
