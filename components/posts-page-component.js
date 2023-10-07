@@ -1,7 +1,9 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage } from "../main.js";
 import { likeEventListener, likedUsers } from "./like-component.js";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -13,7 +15,7 @@ export function renderPostsPageComponent({ appEl }) {
       imageUrl: post.imageUrl,
       description: post.description,
       userLogin: post.user.login,
-      date: new Date(post.createdAt),
+      date: formatDistanceToNow(new Date(post.createdAt), { locale: ru }),
       likes: post.likes,
       isLiked: post.isLiked,
       id: post.id,
@@ -49,7 +51,7 @@ export function renderPostsPageComponent({ appEl }) {
               ${element.description}
             </p>
             <p class="post-date">
-              ${element.date}
+              ${element.date} назад
             </p>
           </li >                  
         </ul >

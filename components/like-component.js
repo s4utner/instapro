@@ -1,4 +1,4 @@
-import { getToken, renderApp, posts } from "../index.js";
+import { getToken, renderApp, posts } from "../main.js";
 import { setLike, removeLike } from "../api.js";
 
 export const likedUsers = ({ elementLikesLength, elementLikes }) => {
