@@ -2,6 +2,7 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
 import { likeEventListener } from "./likeEventListener.js";
+import { renderPostsPageComponent } from "./posts-page-component.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
 
@@ -24,7 +25,6 @@ export function renderUserPostsPageComponent({ appEl }) {
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
   const postsHtml = appPosts.map((element, index) => {
-    console.log(element.likes[0])
     return `
         <div class="page-container">
           <div class="header-container"></div>
