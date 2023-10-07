@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { likeEventListener } from "./likeEventListener.js";
+import { likeEventListener, likedUsers } from "./like-component.js";
 import { renderPostsPageComponent } from "./posts-page-component.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
@@ -42,7 +42,7 @@ export function renderUserPostsPageComponent({ appEl }) {
                   <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
                 </button>
                 <p class="post-likes-text">
-                  Нравится: <strong>${element.likes.length >= 1 ? (element.likes[0].name) + ` ` + `и ещё` + ` ` + (element.likes.length - 1) : element.likes.length}</strong>
+                Нравится: ${likedUsers({ elementLikesLength: element.likes.length, elementLikes: element.likes[0] })}
                 </p>
               </div>
               <p class="post-text">

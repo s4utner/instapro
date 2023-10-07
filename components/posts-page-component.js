@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
-import { likeEventListener } from "./likeEventListener.js";
+import { likeEventListener, likedUsers } from "./like-component.js";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -41,9 +41,9 @@ export function renderPostsPageComponent({ appEl }) {
                 <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
               </button>
               <p class="post-likes-text">
-              Нравится: <strong>${element.likes.length >= 1 ? (element.likes[0].name) + ` ` + `и ещё` + ` ` + (element.likes.length - 1) : element.likes.length}</strong>
-              </p>
-            </div>
+              Нравится: ${likedUsers({ elementLikesLength: element.likes.length, elementLikes: element.likes[0] })}
+              </p >
+            </div >
             <p class="post-text">
               <span class="user-name">${element.userName}</span>
               ${element.description}
@@ -51,9 +51,9 @@ export function renderPostsPageComponent({ appEl }) {
             <p class="post-date">
               ${element.date}
             </p>
-          </li>                  
-        </ul>
-      </div>`
+          </li >                  
+        </ul >
+      </div > `
   });
 
   appEl.innerHTML = postsHtml;
