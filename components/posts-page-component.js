@@ -23,8 +23,6 @@ export function renderPostsPageComponent({ appEl }) {
   })
 
   const postsHtml = appPosts.map((element, index) => {
-    console.log(element.likes.length);
-    console.log(element.likes);
     return `
       <div class="page-container">
         <div class="header-container"></div>

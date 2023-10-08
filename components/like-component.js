@@ -14,7 +14,6 @@ export const likeEventListener = () => {
                 removeLike({ token: getToken(), postId })
                     .then(() => {
                         posts[index].isLiked = false;
-                        posts[index].likes--;
                     })
                     .then(() => {
                         renderApp();
@@ -23,7 +22,6 @@ export const likeEventListener = () => {
                 setLike({ token: getToken(), postId })
                     .then(() => {
                         posts[index].isLiked = true;
-                        posts[index].likes++;
                     })
                     .then(() => {
                         renderApp();
