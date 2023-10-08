@@ -124,6 +124,11 @@ export const renderApp = () => {
         })
           .then((responseData) => {
             console.log(responseData);
+            getPosts({ token: getToken() })
+              .then((response) => {
+                posts = response;
+                renderApp();
+              })
           });
 
         goToPage(POSTS_PAGE);
