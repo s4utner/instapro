@@ -1,5 +1,5 @@
-import { getToken, renderApp, posts } from "../main.js";
-import { setLike, removeLike } from "../api.js";
+import { getToken, renderApp, posts, setPosts } from "../main.js";
+import { setLike, removeLike, getPosts } from "../api.js";
 
 export const likeEventListener = () => {
     const likeButtons = document.querySelectorAll(".like-button");
@@ -9,6 +9,7 @@ export const likeEventListener = () => {
             event.stopPropagation();
             const postId = likeButton.dataset.postId;
             const index = likeButton.dataset.index;
+            likeButton.classList.add("shake-bottom");
 
             if (posts[index].isLiked) {
                 removeLike({ token: getToken(), postId })
@@ -16,7 +17,12 @@ export const likeEventListener = () => {
                         posts[index].isLiked = false;
                     })
                     .then(() => {
-                        renderApp();
+                        getPosts({ token: getToken() })
+                            .then((response) => {
+                                setPosts(response);
+                                likeButton.classList.remove("shake-bottom");
+                                renderApp();
+                            })
                     })
             } else {
                 setLike({ token: getToken(), postId })
@@ -24,7 +30,12 @@ export const likeEventListener = () => {
                         posts[index].isLiked = true;
                     })
                     .then(() => {
-                        renderApp();
+                        getPosts({ token: getToken() })
+                            .then((response) => {
+                                setPosts(response);
+                                likeButton.classList.remove("shake-bottom");
+                                renderApp();
+                            })
                     })
             }
         });
