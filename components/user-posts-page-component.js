@@ -40,7 +40,7 @@ export function renderUserPostsPageComponent({ appEl }) {
                   <img src="${element.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg`}">
                 </button>
                 <p class="post-likes-text">
-                Нравится: ${likedUsers({ elementLikesLength: element.likes.length, elementLikes: element.likes[0] })}
+                Нравится: <strong>${element.likes.length >= 1 ? element.likes[0].name : '0'}</strong> ${(element.likes.length - 1) > 0 ? 'и ещё' + ' ' + (element.likes.length - 1) : ''}
                 </p>
               </div>
               <p class="post-text">
