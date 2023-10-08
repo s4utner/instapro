@@ -1,9 +1,9 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../main.js";
-import { likeEventListener } from "./like-component.js";
+import { posts, goToPage, getToken, renderApp, setPosts } from "../main.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
+import { setLike, removeLike, getUserPosts } from "../api.js";
 
 export function renderUserPostsPageComponent({ appEl }) {
 
@@ -68,6 +68,49 @@ export function renderUserPostsPageComponent({ appEl }) {
       });
     });
   }
+
+  const likeEventListener = () => {
+    const likeButtons = document.querySelectorAll(".like-button");
+
+    likeButtons.forEach(likeButton => {
+      likeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const postId = likeButton.dataset.postId;
+        const index = likeButton.dataset.index;
+        const postHeader = document.querySelector('.post-header');
+        const userId = postHeader.dataset.userId;
+        likeButton.classList.add("shake-bottom");
+
+        if (posts[index].isLiked) {
+          removeLike({ token: getToken(), postId })
+            .then(() => {
+              posts[index].isLiked = false;
+            })
+            .then(() => {
+              getUserPosts({ token: getToken(), userId })
+                .then((response) => {
+                  setPosts(response);
+                  likeButton.classList.remove("shake-bottom");
+                  renderApp();
+                })
+            })
+        } else {
+          setLike({ token: getToken(), postId })
+            .then(() => {
+              posts[index].isLiked = true;
+            })
+            .then(() => {
+              getUserPosts({ token: getToken(), userId })
+                .then((response) => {
+                  setPosts(response);
+                  likeButton.classList.remove("shake-bottom");
+                  renderApp();
+                })
+            })
+        }
+      });
+    });
+  };
 
   likeEventListener();
 }
